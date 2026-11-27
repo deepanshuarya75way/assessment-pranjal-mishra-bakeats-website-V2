@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import BundleCard from '../shop/BundleCard'
 import ProductCard from '../shop/ProductCard'
 import CustomComboPicker from '../shop/CustomComboPicker'
+import HamperBuilder from '../shop/HamperBuilder'
 import { useCart } from '../../context/CartContext'
 import './Products.css'
 
@@ -197,6 +198,7 @@ const rusks = [
 export default function Products() {
   const sectionRef = useRef(null)
   const [comboOpen, setComboOpen] = useState(false)
+  const [hamperOpen, setHamperOpen] = useState(false)
   const { items: cartItems, removeItem } = useCart()
   const comboItems = cartItems.filter((i) => i.title.startsWith('CUSTOM COMBO'))
   const comboCount = comboItems.reduce((sum, i) => sum + i.qty, 0)
@@ -267,6 +269,9 @@ export default function Products() {
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </button>
+            
+            <button className='btn' onClick={() => setHamperOpen(true)}>Build Gift Hamper</button>
+
           </div>
         </div>
       </div>
@@ -291,6 +296,7 @@ export default function Products() {
         cookies={cookies}
         rusks={rusks}
       />
+      <HamperBuilder open={hamperOpen} onClose={() => setHamperOpen(false)} cookies={cookies} rusks={rusks} />
     </section>
   )
 }

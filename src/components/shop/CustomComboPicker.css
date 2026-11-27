@@ -306,3 +306,7 @@
     justify-content: center;
   }
 }
+
+.hamper-sizes {display: flex; gap: 9px; padding: 12px}
+.hamper-slots {display: flex; flex-wrap: wrap; gap: 8px; padding: 12px}
+.hamper-slot  {border: 2px dashed #999; padding: 12px; min-width: 60px; text-align: center; }

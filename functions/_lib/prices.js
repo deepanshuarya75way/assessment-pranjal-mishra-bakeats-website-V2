@@ -8,6 +8,8 @@ const CATALOGUE = {
 
 const CUSTOM_COMBO_PRICE = 469
 
+const HAMPER_PRICE = {4: 400, 6: 570, 12: 1080}
+
 export const AREA_DISCOUNT_PERCENT = {
   '201310': 10,
   '201306': 5,
@@ -20,7 +22,9 @@ export const AREA_DISCOUNT_PERCENT = {
 
 export function computeTotal(items, area) {
   const subtotal = items.reduce((sum, item) => {
-    const price = item.title.startsWith('CUSTOM COMBO')
+    const hamper = item.title.match(/^GIFT HAMPER (\d+)PC/)
+    const price = hamper ? HAMPER_PRICE[hamper[1]]
+      : item.title.startsWith('CUSTOM COMBO')
       ? CUSTOM_COMBO_PRICE
       :Object.hasOwn(CATALOGUE, item.title) ? CATALOGUE[item.title] : undefined
     if (!price) throw new Error(`Unknown item: ${item.title}`)
